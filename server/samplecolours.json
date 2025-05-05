@@ -1,0 +1,72 @@
+[
+    {
+      "name": "Classic Black",
+      "hex": "#000000",
+      "rgb": [0, 0, 0],
+      "style": "Modern, Formal, Bold",
+      "paint_equivalent": "Sherwin-Williams Tricorn Black"
+    },
+    {
+      "name": "Bright Red",
+      "hex": "#C1272D",
+      "rgb": [193, 39, 45],
+      "style": "Traditional, Statement, Welcoming",
+      "paint_equivalent": "Benjamin Moore Heritage Red"
+    },
+    {
+      "name": "Navy Blue",
+      "hex": "#1A2F54",
+      "rgb": [26, 47, 84],
+      "style": "Coastal, Elegant, Modern Farmhouse",
+      "paint_equivalent": "Behr Admiral Blue"
+    },
+    {
+      "name": "Olive Green",
+      "hex": "#556B2F",
+      "rgb": [85, 107, 47],
+      "style": "Rustic, Nature-Inspired, Craftsman",
+      "paint_equivalent": "Sherwin-Williams Privileged Green"
+    },
+    {
+      "name": "Warm Gray / Taupe",
+      "hex": "#8B8589",
+      "rgb": [139, 133, 137],
+      "style": "Transitional, Neutral, Versatile",
+      "paint_equivalent": "Benjamin Moore Chelsea Gray"
+    },
+    {
+      "name": "Deep Burgundy",
+      "hex": "#5A1A01",
+      "rgb": [90, 26, 1],
+      "style": "Moody, Traditional, Rich",
+      "paint_equivalent": "Valspar Redstone Burgundy"
+    },
+    {
+      "name": "Charcoal / Graphite",
+      "hex": "#36454F",
+      "rgb": [54, 69, 79],
+      "style": "Contemporary, Neutral, Minimalist",
+      "paint_equivalent": "Farrow & Ball Railings"
+    },
+    {
+      "name": "Soft White",
+      "hex": "#F5F5F5",
+      "rgb": [245, 245, 245],
+      "style": "Classic, Clean, Minimal",
+      "paint_equivalent": "Sherwin-Williams Alabaster"
+    },
+    {
+      "name": "Teal / Deep Turquoise",
+      "hex": "#006D5B",
+      "rgb": [0, 109, 91],
+      "style": "Playful, Mediterranean, Statement",
+      "paint_equivalent": "Behr Tahitian Treat"
+    },
+    {
+      "name": "Natural Wood Tone",
+      "hex": "#8B5A2B",
+      "rgb": [139, 90, 43],
+      "style": "Craftsman, Warm, Organic",
+      "paint_equivalent": "Minwax Golden Oak (stain)"
+    }
+  ]
