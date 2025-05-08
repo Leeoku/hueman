@@ -22,8 +22,15 @@ def get_colormind_themes():
         return []
 
 def query_colormind_with_color(hex_input, model="default", show_samples=False, themes=None):
-    rgb_input = hex_to_rgb(hex_input)
-    print('rgbinput', rgb_input)
+    # Accept a list of hex codes for hex_input
+    if not isinstance(hex_input, list):
+        hex_input = [hex_input]
+    if len(hex_input) > 5:
+        raise ValueError("hex_input cannot be longer than 5.")
+    rgb_inputs = [hex_to_rgb(h) for h in hex_input]
+    # Fill up to 5 with 'N'
+    payload_input = rgb_inputs + ["N"] * (5 - len(rgb_inputs))
+    print('rgb_inputs', rgb_inputs)
 
     console = Console()
     table = Table(title="🎨 Recommended Palette (RGB)")
@@ -33,9 +40,9 @@ def query_colormind_with_color(hex_input, model="default", show_samples=False, t
     theme_names = themes if themes else []
     theme_palettes = {}
     for theme in theme_names:
-        # Fetch palette for each theme, using hex_input as the first color
+        # Fetch palette for each theme, using the rgb_inputs as the first N colors
         url = "http://colormind.io/api/"
-        payload_theme = {"model": theme, "input": [rgb_input, "N", "N", "N", "N"]}
+        payload_theme = {"model": theme, "input": payload_input}
         try:
             response_theme = requests.post(url, json=payload_theme)
             response_theme.raise_for_status()
