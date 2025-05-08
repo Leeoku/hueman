@@ -159,3 +159,4 @@ def query_colormind_with_color(hex_input, model="default", show_samples=False, t
             row.extend([chatgpt_swatch, chatgpt2_swatch, colorkit_swatch, cloudvision_swatch])
         table.add_row(*row)
     console.print(table)
+    return default_palette
