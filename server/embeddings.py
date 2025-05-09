@@ -2,6 +2,7 @@ import numpy as np
 import json
 from typing import List, Tuple
 from skimage.color import rgb2lab
+from color_utils import hex_to_rgb
 
 N_COLORS = 5  # Always use 5 colors per palette
 
@@ -49,21 +50,32 @@ def load_embeddings(json_path: str) -> np.ndarray:
         embeddings_list = json.load(f)
     return np.array(embeddings_list)
 
-def find_closest_palette(query_palette: List[List[int]], embeddings: np.ndarray, palettes: List[List[List[int]]], n_colors: int = N_COLORS) -> Tuple[int, float]:
+def find_closest_palette(default_palette: List[List[int]], embeddings: np.ndarray, palettes: List[List[List[int]]], color_input: List[str], n_colors: int = N_COLORS) -> list:
     """
-    Find the index and distance of the closest palette to the query_palette using Euclidean distance in Lab color space.
-    Lower distance means higher similarity (0 means identical palettes).
-    This is a perceptual color difference: lower is better, higher is worse.
+    For each color in default_palette, find the closest color in the reference palettes using Lab Euclidean distance.
+    Returns a list of (index, distance) for each color.
     """
-    query_emb = rgb_palette_to_lab(query_palette, n_colors)
-    # Compute Euclidean distance between the query and each reference palette
-    dists = np.linalg.norm(embeddings - query_emb, axis=1)
-    idx = np.argmin(dists)  # Index of the most similar (smallest distance)
-    return idx, dists[idx]
+    results = []
+    for color in default_palette:
+        color_lab = rgb2lab(np.array(color, dtype=np.float32).reshape(1, 1, 3) / 255.0).flatten()
+        min_dist = float('inf')
+        min_idx = -1
+        for j, palette in enumerate(palettes):
+            for c in palette:
+                c_lab = rgb2lab(np.array(c, dtype=np.float32).reshape(1, 1, 3) / 255.0).flatten()
+                dist = np.linalg.norm(color_lab - c_lab)
+                if dist < min_dist:
+                    min_dist = dist
+                    min_idx = j
+        results.append((min_idx, min_dist))
+    return results
 
 # Example usage:
 # palettes, filenames = load_palettes_with_filenames('image_colors_pallette_trim.json')
 # embeddings = build_palette_embeddings(palettes, output_json='embeddings.json')
 # embeddings = load_embeddings('embeddings.json')
-# idx, dist = find_closest_palette([[100, 120, 130], [200, 210, 220], [50, 60, 70], [0,0,0], [0,0,0]], embeddings, palettes)
-# print('Closest palette:', palettes[idx], 'Filename:', filenames[idx], 'Distance:', dist)
+# default_palette = ...
+# color_input = ...
+# results = find_closest_palette(default_palette, embeddings, palettes, color_input)
+# for idx, dist in results:
+#     print('Closest palette:', palettes[idx], 'Filename:', filenames[idx], 'Distance:', dist)

@@ -3,11 +3,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.text import Text
-
-def hex_to_rgb(hexcode):
-    """Convert hex code to RGB tuple."""
-    hexcode = hexcode.lstrip('#')
-    return [int(hexcode[i:i+2], 16) for i in (0, 2, 4)]
+from color_utils import hex_to_rgb
 
 def get_colormind_themes():
     """Query Colormind for the current list of available themes."""
