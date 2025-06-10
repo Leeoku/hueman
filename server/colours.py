@@ -28,7 +28,7 @@ def query_colormind_with_color(hex_input, model="default", show_samples=False, t
     payload_input = rgb_inputs + ["N"] * (5 - len(rgb_inputs))
     print('rgb_inputs', rgb_inputs)
 
-    console = Console()
+    console = Console(force_terminal=True, color_system="truecolor")
     table = Table(title="🎨 Recommended Palette (RGB)")
     table.add_column("#", justify="center")
     table.add_column("RGB (default)", justify="center")
@@ -50,8 +50,8 @@ def query_colormind_with_color(hex_input, model="default", show_samples=False, t
         theme_palettes[theme] = theme_palette
         table.add_column(theme, justify="center")
     if show_samples:
-        table.add_column("ChatGPT", justify="center")
-        table.add_column("ChatGPT_2", justify="center")
+        # table.add_column("ChatGPT", justify="center")
+        # table.add_column("ChatGPT_2", justify="center")
         table.add_column("ColorKit", justify="center")
         table.add_column("CloudVision", justify="center")
 
@@ -100,8 +100,8 @@ def query_colormind_with_color(hex_input, model="default", show_samples=False, t
     # Determine the maximum number of rows needed
     max_len = max(
         *(len(theme_palettes[t]) for t in theme_names),
-        len(chatgpt_colors),
-        len(chatgpt_colors_second_query),
+        # len(chatgpt_colors),
+        # len(chatgpt_colors_second_query),
         len(colorkit_colors),
         len(cloudvision_rgbs),
         len(default_palette)
@@ -129,17 +129,17 @@ def query_colormind_with_color(hex_input, model="default", show_samples=False, t
             row.append(theme_swatch)
         if show_samples:
             # ChatGPT swatch
-            if idx < len(chatgpt_colors):
-                chatgpt_color = chatgpt_colors[idx]
-                chatgpt_swatch = Text("     ", style=f"on rgb({chatgpt_color[0]},{chatgpt_color[1]},{chatgpt_color[2]})")
-            else:
-                chatgpt_swatch = Text("")
-            # ChatGPT_2 swatch
-            if idx < len(chatgpt_colors_second_query):
-                chatgpt2_color = chatgpt_colors_second_query[idx]
-                chatgpt2_swatch = Text("     ", style=f"on rgb({chatgpt2_color[0]},{chatgpt2_color[1]},{chatgpt2_color[2]})")
-            else:
-                chatgpt2_swatch = Text("")
+            # if idx < len(chatgpt_colors):
+            #     chatgpt_color = chatgpt_colors[idx]
+            #     chatgpt_swatch = Text("     ", style=f"on rgb({chatgpt_color[0]},{chatgpt_color[1]},{chatgpt_color[2]})")
+            # else:
+            #     chatgpt_swatch = Text("")
+            # # ChatGPT_2 swatch
+            # if idx < len(chatgpt_colors_second_query):
+            #     chatgpt2_color = chatgpt_colors_second_query[idx]
+            #     chatgpt2_swatch = Text("     ", style=f"on rgb({chatgpt2_color[0]},{chatgpt2_color[1]},{chatgpt2_color[2]})")
+            # else:
+            #     chatgpt2_swatch = Text("")
             # ColorKit swatch
             if idx < len(colorkit_colors):
                 colorkit_color = colorkit_colors[idx]
@@ -152,7 +152,7 @@ def query_colormind_with_color(hex_input, model="default", show_samples=False, t
                 cloudvision_swatch = Text("     ", style=f"on rgb({cloudvision_color[0]},{cloudvision_color[1]},{cloudvision_color[2]})")
             else:
                 cloudvision_swatch = Text("")
-            row.extend([chatgpt_swatch, chatgpt2_swatch, colorkit_swatch, cloudvision_swatch])
+            row.extend([colorkit_swatch, cloudvision_swatch])
         table.add_row(*row)
     console.print(table)
     return default_palette
