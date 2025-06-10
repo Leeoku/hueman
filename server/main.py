@@ -1,6 +1,6 @@
 from fastmcp import FastMCP
 from colours import query_colormind_with_color, get_colormind_themes
-from embeddings import find_closest_palette, load_palettes, build_palette_embeddings, load_embeddings, load_palettes_with_filenames
+from embeddings import find_closest_palette, build_palette_embeddings, load_embeddings, load_palettes_with_filenames
 
 mcp = FastMCP("Hueman MCP")
 

@@ -50,5 +50,11 @@ Run `uv run main.py`
 - `image_colors_palette_trim5.json` — Reference palettes extracted from images
 - `embeddings.json` — Saved palette embeddings for fast search
 
+## Tools
+- `Connection` - Connect using `localhost:8000`
+   - for WSL2, use `hostname -I` and replace localhost with the ip address
+- `Tool Inspector` — Run using `npx @modelcontextprotocol/inspector`
+   - connect using the provided address, use WSL2 IP address if needed
+
 ## License
 MIT
