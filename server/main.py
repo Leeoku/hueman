@@ -1,11 +1,12 @@
+from fastmcp import FastMCP
 from colours import query_colormind_with_color, get_colormind_themes
 from embeddings import find_closest_palette, load_palettes, build_palette_embeddings, load_embeddings, load_palettes_with_filenames
 
-def main():
-    print("Hello from server!")
+mcp = FastMCP("Hueman MCP")
 
-if __name__ == "__main__":
-    color_input = ["#d4bfa9", "#A09B84", "C5C5BE"]
+# sample color_input = ["#d4bfa9", "#A09B84", "C5C5BE"]
+@mcp.tool
+def colormind_tool(color_input: list[str]) -> list[str]:
     themes = get_colormind_themes()
     palettes, filenames = load_palettes_with_filenames('image_colors_palette_trim5.json')
     # Build and save embeddings to file
@@ -16,3 +17,8 @@ if __name__ == "__main__":
     results = find_closest_palette(default_palette, embeddings, palettes, color_input)
     for idx, dist in results:
         print(f"Closest palette: {palettes[idx]}, Filename: {filenames[idx]}, Euclidean Distance: {dist}")
+
+if __name__ == "__main__":
+    mcp.run( transport="streamable-http",
+        host="0.0.0.0",
+        port=8000)
